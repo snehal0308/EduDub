@@ -99,7 +99,7 @@ app.config["MONGO_URI"] = "mongodb://localhost:27017/myDatabase"
 mongo = PyMongo(app)
 client = MongoClient(connection)
 
-openai.api_key = "sk-proj-3pdaYf8lyxWvJ2ebvArjT3BlbkFJl9PtXO8WvYurY76hMOzK"
+openai.api_key = ""
 
 #initialize db
 dbs = client.list_database_names()

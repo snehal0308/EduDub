@@ -52,7 +52,6 @@ oauth.register(
     server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
 )
 
-# 👆 We're continuing from the steps above. Append this to your server.py file.
 
 @app.route("/login")
 def login():
@@ -60,7 +59,6 @@ def login():
         redirect_uri=url_for("callback", _external=True)
     )
 
-# 👆 We're continuing from the steps above. Append this to your server.py file.
 
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
@@ -68,7 +66,6 @@ def callback():
     session["user"] = token
     return redirect("/")
 
-# 👆 We're continuing from the steps above. Append this to your server.py file.
 
 @app.route("/logout")
 def logout():
@@ -85,7 +82,7 @@ def logout():
         )
     )
 
-app.config['STATIC_FOLDER'] = 'data'  # Assuming your data folder is at the root
+app.config['STATIC_FOLDER'] = 'data'  
 
 @app.route('/videos/<path:filename>')
 def serve_video(filename):
@@ -113,7 +110,7 @@ collection = videos_db.video
 
 
 # Retrieve the API key
-ELEVENLABS_API_KEY = "sk_f8504395d84cb0bed42bc1962485c4e987365ffe14253f26"
+ELEVENLABS_API_KEY = ""
 if not ELEVENLABS_API_KEY:
     raise ValueError(
         "ELEVENLABS_API_KEY environment variable not found. "
@@ -130,8 +127,6 @@ source_language=""
 target_language=""
 
 
-
-# 👆 We're continuing from the steps above. Append this to your server.py file.
 
 @app.route("/")
 def home():

@@ -1,0 +1,65 @@
+{% extends 'layout.html' %}
+{% block title %}Dub{% endblock %}
+
+{% block main %}
+<br/>
+<br/>
+
+
+<div class="relative isolate px-6 pt-14 lg:px-8 flex justify-center">
+
+    <form method="POST" class="bg-white p-8 rounded-lg shadow-md max-90-lg w-full">
+      <div class="space-y-8">
+        <div class="border-b border-gray-200 pb-8">
+          <h2 class="text-2xl font-semibold leading-7 text-gray-900">Dub Video</h2>
+          <p class="mt-1 text-sm leading-6 text-gray-600">Summarize any video!
+          </p>
+    
+          <div class="mt-6">
+            <label for="link" class="block text-sm font-medium leading-6 text-gray-900">Video url</label>
+            <div class="mt-2">
+              <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
+                <input type="text" name="link" id="link" autocomplete="link" class="block flex-1 border-0 bg-transparent py-2 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder=" https://">
+              </div>
+            </div>
+          </div>
+        </form>
+    </div>
+
+    <div class="mt-8 flex justify-center">
+      <button type="submit" class="w-90 inline-flex items-center justify-center px-6 py-10 border border-transparent text-base font-medium rounded-md shadow-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Dub Video
+      </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        const body = document.getElementById('body');
+        const submit_btn = document.querySelector('button');
+        const input = document.getElementById('input');
+
+        submit_btn.addEventListener("click", async (e) => {
+            e.preventDefault();
+
+            const response = await fetch("/answer", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({message: input.value})
+            });
+
+            const reader = response.body.getReader();
+            let output = "";
+
+            while (true) {
+                const { done, value } = await reader.read();
+                output += new TextDecoder().decode(value);
+                body.innerHTML = marked.parse(output);
+
+                if (done) {
+                    return;
+                }
+            }
+
+        })
+    </script>
+
+    {% endblock %}

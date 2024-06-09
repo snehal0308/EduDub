@@ -5,12 +5,8 @@ from dotenv import load_dotenv
 from elevenlabs.client import ElevenLabs
 
 
-
-
-# Load environment variables
 load_dotenv()
 
-# Retrieve the API key
 ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
 if not ELEVENLABS_API_KEY:
     raise ValueError(
